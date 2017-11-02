@@ -235,3 +235,155 @@ In summary....
 
 
 
+Alright, time for the big guns.
+Animating objects using a thread is the most effective and accurate method of implementation.
+Lets do it.
+
+### Thread Example
+
+Our Main class stays exactly the same this time.
+Our window class looks like this;
+
+```
+public class Window extends JPanel implements Runnable {
+
+    private final int B_WIDTH = 800;
+    private final int B_HEIGHT = 600;
+    private final int INITIAL_X = 40;
+    private final int INITIAL_Y = 40;
+    private final int DELAY = 100;
+
+    private Image player;
+    private Thread animator;
+    private int x, y;
+
+    public Window() {
+
+        initWindow();
+    }
+
+    private void loadImage() {
+
+        ImageIcon ii = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/player1.png");
+        player = ii.getImage();
+    }
+
+    private void initWindow() {
+
+        setBackground(Color.BLACK);
+        setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
+        setDoubleBuffered(true);
+
+        loadImage();
+
+        x = INITIAL_X;
+        y = INITIAL_Y;
+
+    }
+
+    @Override
+    public void addNotify() {
+        super.addNotify();
+
+        animator = new Thread(this);
+        animator.start();
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        drawPlayer(g);
+    }
+
+    private void drawPlayer(Graphics g) {
+
+        g.drawImage(player, x, y, this);
+        Toolkit.getDefaultToolkit().sync();
+    }
+
+
+
+    public void cycle() {
+       x += 1;
+       y += 1;
+
+       if (y > B_HEIGHT) {
+           y = INITIAL_Y;
+           x = INITIAL_X;
+       }
+       if (x > B_WIDTH) {
+           y = INITIAL_Y;
+           x = INITIAL_X;
+       }
+
+            repaint();
+        }
+
+
+    @Override
+    public void run() {
+
+        long beforeTime, timeDiff, sleep;
+
+        beforeTime = System.currentTimeMillis();
+
+        while (true) {
+
+            cycle();
+            repaint();
+
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = DELAY - timeDiff;
+
+            if (sleep < 0) {
+                sleep = 2;
+            }
+
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted: " + e.getMessage());
+            }
+
+            beforeTime = System.currentTimeMillis();
+        }
+    }
+}
+
+```
+
+In the previous examples, we executed a task at specific intervals.
+In this example, the animation will take place inside a thread. The run() method is called only once.
+This is why we have a while loop in the method. From this method, we call the cycle() and the repaint() methods.
+
+
+The addNotify() method is called after our JPanel has been added to the JFrame component.
+This method is often used for various initialisation tasks.
+
+
+```
+@Override
+public void addNotify() {
+    super.addNotify();
+
+    animator = new Thread(this);
+    animator.start();
+}
+```
+
+In order to make our game run smoothly, we use the system time to give us better accuracy in our calculations
+on intervals.
+The cycle() and the repaint() methods might take different times to complete during different cycles.
+We calculate the time time cycle() + repaint() take to complete and subtract the sum from the DELAY constant.
+This way we want to ensure that each while cycle runs at constant time. In our case, it is DELAY ms each cycle.
+
+```
+timeDiff = System.currentTimeMillis() - beforeTime;
+sleep = DELAY - timeDiff;
+```
+
+
+
+
+

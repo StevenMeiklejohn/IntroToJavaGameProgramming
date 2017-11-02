@@ -3,24 +3,19 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class Window extends JPanel {
+public class Window extends JPanel implements Runnable {
 
     private final int B_WIDTH = 800;
     private final int B_HEIGHT = 600;
     private final int INITIAL_X = 40;
     private final int INITIAL_Y = 40;
-    private final int INITIAL_DELAY = 100;
-    private final int PERIOD_INTERVAL = 25;
+    private final int DELAY = 100;
 
     private Image player;
-    private Timer timer;
+    private Thread animator;
     private int x, y;
 
     public Window() {
@@ -45,9 +40,14 @@ public class Window extends JPanel {
         x = INITIAL_X;
         y = INITIAL_Y;
 
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new ScheduleTask(),
-                INITIAL_DELAY, PERIOD_INTERVAL);
+    }
+
+    @Override
+    public void addNotify() {
+        super.addNotify();
+
+        animator = new Thread(this);
+        animator.start();
     }
 
     @Override
@@ -63,19 +63,51 @@ public class Window extends JPanel {
         Toolkit.getDefaultToolkit().sync();
     }
 
-    private class ScheduleTask extends TimerTask {
 
-        @Override
-        public void run() {
-            x += 1;
-            y += 1;
 
-            if (y > B_HEIGHT) {
-                y = INITIAL_Y;
-                x = INITIAL_X;
-            }
+    public void cycle() {
+       x += 1;
+       y += 1;
+
+       if (y > B_HEIGHT) {
+           y = INITIAL_Y;
+           x = INITIAL_X;
+       }
+       if (x > B_WIDTH) {
+           y = INITIAL_Y;
+           x = INITIAL_X;
+       }
 
             repaint();
+        }
+
+
+    @Override
+    public void run() {
+
+        long beforeTime, timeDiff, sleep;
+
+        beforeTime = System.currentTimeMillis();
+
+        while (true) {
+
+            cycle();
+            repaint();
+
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = DELAY - timeDiff;
+
+            if (sleep < 0) {
+                sleep = 2;
+            }
+
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted: " + e.getMessage());
+            }
+
+            beforeTime = System.currentTimeMillis();
         }
     }
 
