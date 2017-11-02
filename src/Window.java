@@ -1,20 +1,26 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
-/**
- * Created by user on 01/11/2017.
- */
-public class Window extends JPanel implements Runnable {
+public class Window extends JPanel {
 
+    private final int B_WIDTH = 800;
+    private final int B_HEIGHT = 600;
+    private final int INITIAL_X = 40;
+    private final int INITIAL_Y = 40;
+    private final int INITIAL_DELAY = 100;
+    private final int PERIOD_INTERVAL = 25;
 
-    private final int B_WIDTH = 350;
-    private final int B_HEIGHT = 350;
-    private final int INITIAL_X = -40;
-    private final int INITIAL_Y = -40;
-    private final int DELAY = 25;
-
-    private Image sprite;
-    private Thread animator;
+    private Image player;
+    private Timer timer;
     private int x, y;
 
     public Window() {
@@ -25,7 +31,7 @@ public class Window extends JPanel implements Runnable {
     private void loadImage() {
 
         ImageIcon ii = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/player1.png");
-        sprite = ii.getImage();
+        player = ii.getImage();
     }
 
     private void initWindow() {
@@ -38,67 +44,40 @@ public class Window extends JPanel implements Runnable {
 
         x = INITIAL_X;
         y = INITIAL_Y;
-    }
 
-    @Override
-    public void addNotify() {
-        super.addNotify();
-
-        animator = new Thread(this);
-        animator.start();
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new ScheduleTask(),
+                INITIAL_DELAY, PERIOD_INTERVAL);
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        drawSprite(g);
+        drawPlayer(g);
     }
 
-    private void drawSprite(Graphics g) {
+    private void drawPlayer(Graphics g) {
 
-        g.drawImage(sprite, x, y, this);
+        g.drawImage(player, x, y, this);
         Toolkit.getDefaultToolkit().sync();
     }
 
-    private void cycle() {
+    private class ScheduleTask extends TimerTask {
 
-        x += 1;
-        y += 1;
+        @Override
+        public void run() {
+            x += 1;
+            y += 1;
 
-        if (y > B_HEIGHT) {
+            if (y > B_HEIGHT) {
+                y = INITIAL_Y;
+                x = INITIAL_X;
+            }
 
-            y = INITIAL_Y;
-            x = INITIAL_X;
-        }
-    }
-
-    @Override
-    public void run() {
-
-        long beforeTime, timeDiff, sleep;
-
-        beforeTime = System.currentTimeMillis();
-
-        while (true) {
-
-            cycle();
             repaint();
-
-            timeDiff = System.currentTimeMillis() - beforeTime;
-            sleep = DELAY - timeDiff;
-
-            if (sleep < 0) {
-                sleep = 2;
-            }
-
-            try {
-                Thread.sleep(sleep);
-            } catch (InterruptedException e) {
-                System.out.println("Interrupted: " + e.getMessage());
-            }
-
-            beforeTime = System.currentTimeMillis();
         }
     }
+
+
 }
