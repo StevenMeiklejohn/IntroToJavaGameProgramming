@@ -11,6 +11,8 @@ public class PlayerShip {
     private int dy;
     private int x;
     private int y;
+    private int iconWidth;
+    private int iconHeight;
     private Image image;
 
     public PlayerShip() {
@@ -21,9 +23,11 @@ public class PlayerShip {
     private void initPlayerShip() {
 
         ImageIcon ii = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/player1.png");
+        iconWidth = ii.getIconWidth();
+        iconHeight = ii.getIconHeight();
         image = ii.getImage();
-        x = 40;
-        y = 60;
+        x = 100;
+        y = 100;
     }
 
 
@@ -31,6 +35,8 @@ public class PlayerShip {
         x += dx;
         y += dy;
     }
+
+
 
     public int getX() {
         return x;
@@ -40,8 +46,24 @@ public class PlayerShip {
         return y;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public Image getImage() {
         return image;
+    }
+
+    public int getImageWidth(){
+        return iconWidth;
+    }
+
+    public int getImageHeight(){
+        return iconHeight;
     }
 
     public void setDx(int dx) {

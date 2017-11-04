@@ -6,14 +6,11 @@ public class WindowThread extends JPanel implements Runnable {
 
     private final int B_WIDTH = 800;
     private final int B_HEIGHT = 600;
-    private final int INITIAL_X = 40;
-    private final int INITIAL_Y = 40;
     private final int DELAY = 50;
 
     private PlayerShip playerShip;
     private Thread animator;
     KeyboardInput keyboard = new KeyboardInput();
-    private int x, y;
 
     public WindowThread() {
 
@@ -28,13 +25,7 @@ public class WindowThread extends JPanel implements Runnable {
         setDoubleBuffered(true);
         addKeyListener(keyboard);
         setFocusable(true);
-//        setVisible(true);
-//        canvas.addKeyListener( keyboard );
         playerShip = new PlayerShip();
-
-//        x = INITIAL_X;
-//        y = INITIAL_Y;
-
     }
 
     @Override
@@ -60,24 +51,6 @@ public class WindowThread extends JPanel implements Runnable {
     }
 
 
-    public void cycle() {
-//       x += 1;
-//       y += 1;
-//
-//       if (y > B_HEIGHT) {
-//           y = INITIAL_Y;
-//           x = INITIAL_X;
-//       }
-//       if (x > B_WIDTH) {
-//           y = INITIAL_Y;
-//           x = INITIAL_X;
-//       }
-
-
-//        keyboard.poll();
-//        processInput();
-//        repaint();
-    }
 
 
     @Override
@@ -136,21 +109,25 @@ public class WindowThread extends JPanel implements Runnable {
             playerShip.setDx(0);
         }
 
-            // Check collision with left
-//            if( bob.x < 0 )
-//                bob.x = 0;
-
         // If moving right
         if (keyboard.keyDown(KeyEvent.VK_RIGHT)) {
             playerShip.setDx(5);
         }
 
-//        if (keyboard.keyReleased(KeyEvent.VK_RIGHT){
-//            playerShip.setDx(0);
-//        }
 
 
+        if( playerShip.getX() < 0 )
+            playerShip.setX(0);
 
+
+        if( playerShip.getX() >= (B_WIDTH - playerShip.getImageWidth()))
+            playerShip.setX(B_WIDTH - playerShip.getImageWidth());
+
+        if( playerShip.getY() < 0 )
+            playerShip.setY(0);
+
+        if( playerShip.getY() >= (B_HEIGHT - playerShip.getImageHeight()))
+            playerShip.setY(B_HEIGHT - playerShip.getImageHeight());
 
 
 
