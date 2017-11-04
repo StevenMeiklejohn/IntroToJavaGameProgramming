@@ -13,12 +13,12 @@ public class ThreadExample extends JFrame {
 
     private void initUI() {
 
-        add(new Window());
+        add(new WindowThread());
 
         setResizable(false);
         pack();
 
-        setTitle("Utility Timer Example");
+        setTitle("Thread example");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

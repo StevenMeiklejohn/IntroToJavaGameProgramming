@@ -15,12 +15,12 @@ public class PlayerShip {
 
     public PlayerShip() {
 
-        initCraft();
+        initPlayerShip();
     }
 
-    private void initCraft() {
+    private void initPlayerShip() {
 
-        ImageIcon ii = new ImageIcon("craft.png");
+        ImageIcon ii = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/player1.png");
         image = ii.getImage();
         x = 40;
         y = 60;
@@ -42,6 +42,14 @@ public class PlayerShip {
 
     public Image getImage() {
         return image;
+    }
+
+    public void setDx(int dx) {
+        this.dx = dx;
+    }
+
+    public void setDy(int dy) {
+        this.dy = dy;
     }
 
     public void keyPressed(KeyEvent e) {
