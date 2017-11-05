@@ -71,6 +71,7 @@ public class PlayerShip extends Sprite {
         return iconHeight;
     }
 
+
     public void setDx(int dx) {
         this.dx = dx;
     }

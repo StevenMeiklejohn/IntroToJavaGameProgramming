@@ -10,9 +10,21 @@ public class WindowThread extends JPanel implements Runnable {
     private final int DELAY = 50;
 
     private PlayerShip playerShip;
-    private Image background;
     private Thread animator;
+    private ArrayList aliens;
+    private boolean inGame;
     KeyboardInput keyboard = new KeyboardInput();
+    private final int[][] pos = {
+            {2380, 29}, {2500, 59}, {1380, 89},
+            {780, 109}, {580, 139}, {680, 239},
+            {790, 259}, {760, 50}, {790, 150},
+            {980, 209}, {560, 45}, {510, 70},
+            {930, 159}, {590, 80}, {530, 60},
+            {940, 59}, {990, 30}, {920, 200},
+            {900, 259}, {660, 50}, {540, 90},
+            {810, 220}, {860, 20}, {740, 180},
+            {820, 128}, {490, 170}, {700, 30}
+    };
 
     public WindowThread() {
 
@@ -27,7 +39,17 @@ public class WindowThread extends JPanel implements Runnable {
         setDoubleBuffered(true);
         addKeyListener(keyboard);
         setFocusable(true);
+        inGame = true;
+        initAliens();
         playerShip = new PlayerShip(100, 300);
+    }
+
+    public void initAliens() {
+        aliens = new ArrayList<>();
+
+        for (int[] p : pos) {
+            aliens.add(new Alien(p[0], p[1]));
+        }
     }
 
     @Override
@@ -42,7 +64,14 @@ public class WindowThread extends JPanel implements Runnable {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        doDrawing(g);
+        if (inGame) {
+
+            doDrawing(g);
+
+        } else {
+
+            drawGameOver(g);
+        }
     }
 
 
@@ -50,7 +79,9 @@ public class WindowThread extends JPanel implements Runnable {
     private void doDrawing(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
+        if(playerShip.isVisible()) {
+            g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
+        }
 
         ArrayList ms = playerShip.getMissiles();
 
@@ -59,7 +90,34 @@ public class WindowThread extends JPanel implements Runnable {
             g2d.drawImage(m.getImage(), m.getX(),
                     m.getY(), this);
         }
+
+        for (Object a1 : aliens) {
+            Alien a = (Alien) a1;
+            g2d.drawImage(a.getImage(), a.getX(),
+                    a.getY(), this);
+        }
+
+//        for (Alien a : aliens) {
+//            if (a.isVisible()) {
+//                g.drawImage(a.getImage(), a.getX(), a.getY(), this);
+//            }
+//        }
+
+        g.setColor(Color.WHITE);
+        g.drawString("Aliens left: " + aliens.size(), 5, 15);
         Toolkit.getDefaultToolkit().sync();
+    }
+
+    private void drawGameOver(Graphics g) {
+
+        String msg = "Game Over";
+        Font small = new Font("Helvetica", Font.BOLD, 14);
+        FontMetrics fm = getFontMetrics(small);
+
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2,
+                B_HEIGHT / 2);
     }
 
 
@@ -72,9 +130,12 @@ public class WindowThread extends JPanel implements Runnable {
 
         beforeTime = System.currentTimeMillis();
 
-        while (true) {
-            playerShip.move();
+        while (inGame) {
+            updatePlayerShip();
             updateMissiles();
+            updateAliens();
+
+            checkCollisions();
             keyboard.poll();
             processInput();
             repaint();
@@ -114,6 +175,66 @@ public class WindowThread extends JPanel implements Runnable {
             } else {
 
                 ms.remove(i);
+            }
+        }
+    }
+
+    private void updatePlayerShip() {
+
+        if (playerShip.isVisible()) {
+            playerShip.move();
+        }
+    }
+
+    private void updateAliens() {
+
+        if (aliens.isEmpty()) {
+
+            inGame = false;
+            return;
+        }
+
+        for (int i = 0; i < aliens.size(); i++) {
+            Alien a = (Alien) aliens.get(i);
+
+            if (a.isVisible()) {
+                a.move();
+            } else {
+                aliens.remove(i);
+            }
+        }
+    }
+
+    public void checkCollisions() {
+
+
+        Rectangle r3 = playerShip.getBounds();
+
+        for (int i = 0; i < aliens.size(); i++) {
+            Alien a = (Alien) aliens.get(i);
+            Rectangle r2 = a.getBounds();
+
+            if (r3.intersects(r2)) {
+                playerShip.setVisible(false);
+                a.setVisible(false);
+                inGame = false;
+            }
+        }
+
+
+        ArrayList<Missile> ms = playerShip.getMissiles();
+
+        for (Missile m : ms) {
+
+            Rectangle r1 = m.getBounds();
+
+            for (int i = 0; i < aliens.size(); i++) {
+                Alien a = (Alien) aliens.get(i);
+                Rectangle r2 = a.getBounds();
+                if (r1.intersects(r2)) {
+                    m.setVisible(false);
+                    a.setVisible(false);
+                }
             }
         }
     }
