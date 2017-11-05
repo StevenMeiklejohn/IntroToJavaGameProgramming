@@ -12,6 +12,8 @@ public class WindowThread extends JPanel implements Runnable {
     private PlayerShip playerShip;
     private Thread animator;
     private ArrayList aliens;
+    private ArrayList explosions;
+    private boolean playerCollision;
     private boolean inGame;
     KeyboardInput keyboard = new KeyboardInput();
     private final int[][] pos = {
@@ -41,6 +43,7 @@ public class WindowThread extends JPanel implements Runnable {
         setFocusable(true);
         inGame = true;
         initAliens();
+        initExplosions();
         playerShip = new PlayerShip(100, 300);
     }
 
@@ -50,6 +53,10 @@ public class WindowThread extends JPanel implements Runnable {
         for (int[] p : pos) {
             aliens.add(new Alien(p[0], p[1]));
         }
+    }
+
+    public void initExplosions(){
+        explosions = new ArrayList<Explosion>();
     }
 
     @Override
@@ -97,6 +104,12 @@ public class WindowThread extends JPanel implements Runnable {
                     a.getY(), this);
         }
 
+        for (Object ex : explosions) {
+            Explosion explosion = (Explosion) ex;
+            g2d.drawImage(explosion.getImage(), explosion.getX(),
+                    explosion.getY(), this);
+        }
+
 //        for (Alien a : aliens) {
 //            if (a.isVisible()) {
 //                g.drawImage(a.getImage(), a.getX(), a.getY(), this);
@@ -134,6 +147,7 @@ public class WindowThread extends JPanel implements Runnable {
             updatePlayerShip();
             updateMissiles();
             updateAliens();
+            updateExplosions();
 
             checkCollisions();
             keyboard.poll();
@@ -183,6 +197,8 @@ public class WindowThread extends JPanel implements Runnable {
 
         if (playerShip.isVisible()) {
             playerShip.move();
+        } else {
+            inGame = false;
         }
     }
 
@@ -205,6 +221,16 @@ public class WindowThread extends JPanel implements Runnable {
         }
     }
 
+    private void updateExplosions(){
+        for (int i = 0; i < explosions.size(); i++) {
+            Explosion ex = (Explosion) explosions.get(i);
+
+            if (ex.checkForRemoval()) {
+                explosions.remove(i);
+            }
+        }
+    }
+
     public void checkCollisions() {
 
 
@@ -217,7 +243,9 @@ public class WindowThread extends JPanel implements Runnable {
             if (r3.intersects(r2)) {
                 playerShip.setVisible(false);
                 a.setVisible(false);
-                inGame = false;
+                explosions.add(new Explosion(a.getX(), a.getY()));
+                explosions.add(new Explosion(playerShip.getX(), playerShip.getY()));
+                playerCollision = true;
             }
         }
 
@@ -234,6 +262,7 @@ public class WindowThread extends JPanel implements Runnable {
                 if (r1.intersects(r2)) {
                     m.setVisible(false);
                     a.setVisible(false);
+                    explosions.add(new Explosion(a.getX(), a.getY()));
                 }
             }
         }
