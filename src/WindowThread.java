@@ -122,15 +122,19 @@ public class WindowThread extends JPanel implements Runnable {
     }
 
     private void drawGameOver(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        GameOver gameOver = new GameOver(0, 0);
+        g2d.drawImage(gameOver.getImage(), 0, 0, this);
+//        JLabel label = new JLabel(icon);
 
-        String msg = "Game Over";
-        Font small = new Font("Helvetica", Font.BOLD, 14);
-        FontMetrics fm = getFontMetrics(small);
-
-        g.setColor(Color.white);
-        g.setFont(small);
-        g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2,
-                B_HEIGHT / 2);
+//        String msg = "Game Over";
+//        Font small = new Font("Helvetica", Font.BOLD, 14);
+//        FontMetrics fm = getFontMetrics(small);
+//
+//        g.setColor(Color.white);
+//        g.setFont(small);
+//        g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2,
+//                B_HEIGHT / 2);
     }
 
 
