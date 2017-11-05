@@ -13,8 +13,9 @@ public class WindowThread extends JPanel implements Runnable {
     private Thread animator;
     private ArrayList aliens;
     private ArrayList explosions;
-    private boolean playerCollision;
     private boolean inGame;
+    private boolean inTitle;
+    private boolean gameOver;
     KeyboardInput keyboard = new KeyboardInput();
     private final int[][] pos = {
             {2380, 29}, {2500, 59}, {1380, 89},
@@ -41,7 +42,8 @@ public class WindowThread extends JPanel implements Runnable {
         setDoubleBuffered(true);
         addKeyListener(keyboard);
         setFocusable(true);
-        inGame = true;
+        inTitle = true;
+        inGame = false;
         initAliens();
         initExplosions();
         playerShip = new PlayerShip(100, 300);
@@ -72,13 +74,18 @@ public class WindowThread extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (inGame) {
-
             doDrawing(g);
-
-        } else {
-
+        }
+        if(inTitle){
+            drawGameTitle(g);
+        }
+        if(gameOver){
             drawGameOver(g);
         }
+//        if(!inGame && !inTitle){
+//            drawGameOver(g);
+//        }
+
     }
 
 
@@ -125,16 +132,12 @@ public class WindowThread extends JPanel implements Runnable {
         Graphics2D g2d = (Graphics2D) g;
         GameOver gameOver = new GameOver(0, 0);
         g2d.drawImage(gameOver.getImage(), 0, 0, this);
-//        JLabel label = new JLabel(icon);
+    }
 
-//        String msg = "Game Over";
-//        Font small = new Font("Helvetica", Font.BOLD, 14);
-//        FontMetrics fm = getFontMetrics(small);
-//
-//        g.setColor(Color.white);
-//        g.setFont(small);
-//        g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2,
-//                B_HEIGHT / 2);
+    private void drawGameTitle(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        SplashScreen title = new SplashScreen(0, 0);
+        g2d.drawImage(title.getImage(), 0, 0, this);
     }
 
 
@@ -146,6 +149,16 @@ public class WindowThread extends JPanel implements Runnable {
         long beforeTime, timeDiff, sleep;
 
         beforeTime = System.currentTimeMillis();
+
+        while(inTitle){
+            keyboard.poll();
+            processInput();
+        }
+
+        while(!inGame && !inTitle){
+            keyboard.poll();
+            processInput();
+        }
 
         while (inGame) {
             updatePlayerShip();
@@ -249,7 +262,7 @@ public class WindowThread extends JPanel implements Runnable {
                 a.setVisible(false);
                 explosions.add(new Explosion(a.getX(), a.getY()));
                 explosions.add(new Explosion(playerShip.getX(), playerShip.getY()));
-                playerCollision = true;
+                gameOver = true;
             }
         }
 
@@ -304,6 +317,11 @@ public class WindowThread extends JPanel implements Runnable {
 
         if (keyboard.keyDown(KeyEvent.VK_SPACE)){
             playerShip.fire();
+        }
+
+        if (keyboard.keyDown(KeyEvent.VK_P)){
+            inTitle = false;
+            inGame = true;
         }
 
 
