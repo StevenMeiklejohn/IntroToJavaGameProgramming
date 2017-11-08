@@ -117,12 +117,6 @@ public class WindowThread extends JPanel implements Runnable {
                     explosion.getY(), this);
         }
 
-//        for (Alien a : aliens) {
-//            if (a.isVisible()) {
-//                g.drawImage(a.getImage(), a.getX(), a.getY(), this);
-//            }
-//        }
-
         g.setColor(Color.WHITE);
         g.drawString("Aliens left: " + aliens.size(), 5, 15);
         Toolkit.getDefaultToolkit().sync();
@@ -224,6 +218,7 @@ public class WindowThread extends JPanel implements Runnable {
         if (aliens.isEmpty()) {
 
             inGame = false;
+            gameOver = true;
             return;
         }
 

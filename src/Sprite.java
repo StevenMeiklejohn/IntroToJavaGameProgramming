@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by user on 04/11/2017.
@@ -14,6 +15,7 @@ public class Sprite {
     private int iconHeight;
     protected boolean vis;
     protected Image image;
+    private ArrayList<Image> animationFrames;
 
     public Sprite(int x, int y) {
 
@@ -23,11 +25,21 @@ public class Sprite {
     }
 
     protected void loadImage(String imageName) {
-
         ImageIcon ii = new ImageIcon(imageName);
         iconWidth = ii.getIconWidth();
         iconHeight = ii.getIconHeight();
         image = ii.getImage();
+    }
+
+    public void loadAnimationFrames(Image image1, Image image2, Image image3, Image image4){
+        animationFrames.add(image1);
+        animationFrames.add(image2);
+        animationFrames.add(image3);
+        animationFrames.add(image4);
+    }
+
+    public ArrayList<Image> getAnimationFrames(){
+        return this.animationFrames;
     }
 
     protected void getImageDimensions() {

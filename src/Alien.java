@@ -23,6 +23,6 @@ public class Alien extends Sprite {
             x = INITIAL_X;
         }
 
-        x -= 1;
+        x -= 2;
     }
 }

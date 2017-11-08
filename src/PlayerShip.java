@@ -13,7 +13,7 @@ public class PlayerShip extends Sprite {
     private int iconWidth;
     private int iconHeight;
     private Image image;
-    private ArrayList missiles;;
+    private ArrayList missiles;
 
     public PlayerShip(int x, int y) {
         super(x, y);
@@ -21,6 +21,7 @@ public class PlayerShip extends Sprite {
     }
 
     private void initPlayerShip() {
+
         missiles = new ArrayList();
         ImageIcon ii = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/player1.png");
         iconWidth = ii.getIconWidth();

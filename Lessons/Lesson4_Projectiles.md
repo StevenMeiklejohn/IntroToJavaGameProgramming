@@ -364,7 +364,7 @@ public class WindowThread extends JPanel implements Runnable {
 ```
 
 
-Our doDrawing() methos has been updated to draw each missile in the arrayList.
+Our doDrawing() method has been updated to draw each missile in the arrayList.
 
 ```
     private void doDrawing(Graphics g) {
