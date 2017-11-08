@@ -214,3 +214,6 @@ public class Explosion extends Sprite {
 }
 ```
 
+One important difference here is the addition of a checkForRemoval method.
+When an enemy explodes, we don't want our explosion image/animation to linger on screen forever.
+We want it to quickly dissapear. To achieve this we call explosion.checkForRemoval() on every loop.
