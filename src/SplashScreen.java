@@ -32,17 +32,7 @@ public class SplashScreen extends Sprite {
         this.width = 800;
         this.height = 600;
     }
-
-
 }
 
-//    public void move() {
-//
-//        if (x < 0) {
-//            x = INITIAL_X;
-//        }
-//
-//        x -= 1;
-//    }
 
 

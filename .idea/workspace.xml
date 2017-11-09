@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a054c75a-a53b-464b-86f5-c1403f6953e3" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Lessons/Lesson4_Projectiles.md" afterPath="$PROJECT_DIR$/Lessons/Lesson4__Projectiles.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lessons/Lesson5__Enemies.md" afterPath="$PROJECT_DIR$/Lessons/Lesson5__Enemies.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GameOver.java" afterPath="$PROJECT_DIR$/src/GameOver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SplashScreen.java" afterPath="$PROJECT_DIR$/src/SplashScreen.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -34,56 +33,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerShip.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PlayerShip.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="15" column="31" lean-forward="false" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1120#1121#0" expanded="true" />
-                <element signature="e#1148#1149#0" expanded="true" />
-                <element signature="e#1181#1182#0" expanded="true" />
-                <element signature="e#1213#1214#0" expanded="true" />
-                <element signature="e#1247#1248#0" expanded="true" />
-                <element signature="e#1280#1281#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ThreadExample.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ThreadExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="17" column="28" lean-forward="false" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="WindowThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/WindowThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="238" column="0" lean-forward="true" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
+            <state relative-caret-position="229">
+              <caret line="316" column="0" lean-forward="false" selection-start-line="316" selection-start-column="0" selection-end-line="319" selection-end-column="9" />
               <folding>
                 <element signature="e#1630#1631#0" expanded="true" />
                 <element signature="e#1685#1686#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Animation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Animation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="68" column="5" lean-forward="false" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1293#1294#0" expanded="true" />
-                <element signature="e#1341#1342#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,17 +76,52 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Lesson6__CollisionDetection.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Lesson6__CollisionDetection.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lessons/Lesson6__CollisionDetection.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="363">
-                <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+                <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor>
                 <js_state />
               </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Lesson7__GameOverScreen.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Lessons/Lesson7__GameOverScreen.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="370">
+                <caret line="183" column="49" lean-forward="false" selection-start-line="183" selection-start-column="49" selection-end-line="183" selection-end-column="49" />
+                <folding />
+              </first_editor>
+              <second_editor>
+                <js_state />
+              </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SplashScreen.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/SplashScreen.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="34" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameOver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/GameOver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="35" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -195,8 +187,6 @@
         <option value="$PROJECT_DIR$/src/BackgroundPanel.java" />
         <option value="$PROJECT_DIR$/src/Missile.java" />
         <option value="$PROJECT_DIR$/src/Explosion.java" />
-        <option value="$PROJECT_DIR$/src/GameOver.java" />
-        <option value="$PROJECT_DIR$/src/SplashScreen.java" />
         <option value="$PROJECT_DIR$/src/Alien.java" />
         <option value="$PROJECT_DIR$/src/Animation.java" />
         <option value="$PROJECT_DIR$/src/PlayerShip.java" />
@@ -205,6 +195,9 @@
         <option value="$PROJECT_DIR$/src/WindowThread.java" />
         <option value="$PROJECT_DIR$/Lessons/Lesson5__Enemies.md" />
         <option value="$PROJECT_DIR$/Lessons/Lesson6__CollisionDetection.md" />
+        <option value="$PROJECT_DIR$/src/GameOver.java" />
+        <option value="$PROJECT_DIR$/src/SplashScreen.java" />
+        <option value="$PROJECT_DIR$/Lessons/Lesson7__GameOverScreen.md" />
       </list>
     </option>
   </component>
@@ -620,17 +613,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/WindowThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1860">
-          <caret line="127" column="31" lean-forward="true" selection-start-line="127" selection-start-column="31" selection-end-line="127" selection-end-column="31" />
-          <folding>
-            <element signature="e#1630#1631#0" expanded="true" />
-            <element signature="e#1685#1686#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lessons/Lesson4__Projectiles.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
@@ -981,32 +963,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GameOver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="16" column="92" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding>
-            <element signature="e#359#360#0" expanded="true" />
-            <element signature="e#384#385#0" expanded="true" />
-            <element signature="e#432#433#0" expanded="true" />
-            <element signature="e#458#459#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SplashScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="16" column="96" lean-forward="false" selection-start-line="16" selection-start-column="96" selection-end-line="16" selection-end-column="96" />
-          <folding>
-            <element signature="e#380#381#0" expanded="true" />
-            <element signature="e#406#407#0" expanded="true" />
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#480#481#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ThreadExample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
@@ -1086,17 +1042,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/WindowThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="238" column="0" lean-forward="true" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
-          <folding>
-            <element signature="e#1630#1631#0" expanded="true" />
-            <element signature="e#1685#1686#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lessons/Lesson5__Enemies.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
@@ -1114,7 +1059,47 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="363">
-            <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameOver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="35" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SplashScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="34" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/WindowThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="316" column="0" lean-forward="false" selection-start-line="316" selection-start-column="0" selection-end-line="319" selection-end-column="9" />
+          <folding>
+            <element signature="e#1630#1631#0" expanded="true" />
+            <element signature="e#1685#1686#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lessons/Lesson7__GameOverScreen.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="370">
+            <caret line="183" column="49" lean-forward="false" selection-start-line="183" selection-start-column="49" selection-end-line="183" selection-end-column="49" />
             <folding />
           </first_editor>
           <second_editor>
