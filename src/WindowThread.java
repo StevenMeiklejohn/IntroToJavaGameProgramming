@@ -16,7 +16,7 @@ public class WindowThread extends JPanel implements Runnable {
     private boolean inGame;
     private boolean inTitle;
     private boolean gameOver;
-    private Background backGround;
+    private static Background bg1, bg2;
     KeyboardInput keyboard = new KeyboardInput();
     private final int[][] pos = {
             {2380, 29}, {2500, 59}, {1380, 89},
@@ -47,7 +47,8 @@ public class WindowThread extends JPanel implements Runnable {
         inGame = false;
         initAliens();
         initExplosions();
-        backGround = new Background(0, 0);
+        bg1 = new Background(0, 0);
+        bg2 = new Background(800, 0);
         playerShip = new PlayerShip(100, 300);
     }
 
@@ -76,8 +77,6 @@ public class WindowThread extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (inGame) {
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.drawImage(backGround.getBackgroundImage(), 0, 0, this);
             doDrawing(g);
         }
         if(inTitle){
@@ -101,7 +100,8 @@ public class WindowThread extends JPanel implements Runnable {
 
 
         if(playerShip.isVisible()) {
-
+            g.drawImage(bg1.getBackgroundImage(), bg1.getX(), bg1.getY(), this);
+            g.drawImage(bg2.getBackgroundImage(), bg2.getX(), bg2.getY(), this);
             g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
         }
 
@@ -163,6 +163,8 @@ public class WindowThread extends JPanel implements Runnable {
         }
 
         while (inGame) {
+            bg1.update();
+            bg2.update();
             updatePlayerShip();
             updateMissiles();
             updateAliens();

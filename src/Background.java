@@ -5,35 +5,48 @@ import java.awt.*;
  * Created by user on 09/11/2017.
  */
 public class Background {
-    private int x = 0;
-    private int y = 0;
+    private int bgX = 0;
+    private int bgY = 0;
+    private int speedX;
 
 
     public Background(int x , int y){
-        this.x = x;
-        this.y = y;
+        bgX = x;
+        bgY = y;
+        speedX = -5;
     }
 
-    public void update(){
-        x -= 1;
+    public void update() {
+        bgX += speedX;
+        if (bgX <= -800){
+            bgX += 1600;
+        }
     }
 
-    public void drawModel(Graphics g){
-        g.drawImage(getBackgroundImage(),x,y,null);
-    }
+//    public void drawModel(Graphics g){
+//        g.drawImage(getBackgroundImage(),x,y,null);
+//    }
 
     public Image getBackgroundImage(){
-        ImageIcon ic = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/spaceBackgroundReSized.png");
+        ImageIcon ic = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/background800x600.png");
         return ic.getImage();
     }
-    public void displayX(){
-        System.out.println(x);
-    }
+//    public void displayX(){
+//        System.out.println(x);
+//    }
     public int getX(){
-        return x;
+        return bgX;
+    }
+
+    public int getY(){
+        return bgY;
     }
 
     public void setX(int x){
-        this.x = x;
+        this.bgX = x;
+    }
+
+    public void setSpeedX(int speedX) {
+        this.speedX = speedX;
     }
 }
