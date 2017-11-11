@@ -21,7 +21,7 @@ public class Planet {
 
     public void update() {
         bgX += speedX;
-        if (bgX <= -100){
+        if (bgX <= -30){
             bgX += 800;
         }
     }
@@ -32,7 +32,7 @@ public class Planet {
 //            return ic.getImage();
 //        }
 //        else {
-            ImageIcon ic = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/planetDarkerGif.gif");
+            ImageIcon ic = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/planetGifSmall.gif");
             return ic.getImage();
 //        }
     }

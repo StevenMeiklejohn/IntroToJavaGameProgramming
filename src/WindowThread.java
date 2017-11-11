@@ -15,6 +15,7 @@ public class WindowThread extends JPanel implements Runnable {
     private ArrayList aliens;
     private ArrayList explosions;
     private ArrayList planets;
+    private Shield shield;
     private boolean inGame;
     private boolean inTitle;
     private boolean gameOver;
@@ -42,7 +43,6 @@ public class WindowThread extends JPanel implements Runnable {
 
 
     private void initWindow() {
-
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         setDoubleBuffered(true);
@@ -55,7 +55,8 @@ public class WindowThread extends JPanel implements Runnable {
         initPlanets();
         bg1 = new Background(0, 0);
         bg2 = new Background(800, 0);
-        playerShip = new PlayerShip(100, 300);
+        playerShip = new PlayerShip(75, 275);
+        shield = new Shield(50, 250, "green");
     }
 
     public void initAliens(int numberOfEnemeies) {
@@ -142,6 +143,7 @@ public class WindowThread extends JPanel implements Runnable {
                 g2d.drawImage(planet.getImage(), planet.getX(),
                         planet.getY(), this);
             }
+            g2d.drawImage(shield.getImage(), playerShip.getX() - 25, playerShip.getY() - 25, this);
             g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
         }
 
@@ -206,6 +208,7 @@ public class WindowThread extends JPanel implements Runnable {
             bg1.update();
             bg2.update();
             updatePlanets();
+            updatePlayerShield();
             updatePlayerShip();
             updateMissiles();
             updateAliens();
@@ -264,6 +267,10 @@ public class WindowThread extends JPanel implements Runnable {
         }
     }
 
+    private void updatePlayerShield(){
+        shield.move(playerShip.getX(), playerShip.getY());
+    }
+
     private void updateAliens() {
 
         if (aliens.isEmpty()) {
@@ -317,6 +324,7 @@ public class WindowThread extends JPanel implements Runnable {
                 explosions.add(new Explosion(playerShip.getX(), playerShip.getY()));
                 gameOver = true;
             }
+
         }
 
 

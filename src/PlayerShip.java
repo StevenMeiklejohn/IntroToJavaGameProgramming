@@ -14,9 +14,13 @@ public class PlayerShip extends Sprite {
     private int iconHeight;
     private Image image;
     private ArrayList missiles;
+    private int lives;
+
+
 
     public PlayerShip(int x, int y) {
         super(x, y);
+        this.lives = 3;
         initPlayerShip();
     }
 
@@ -28,6 +32,18 @@ public class PlayerShip extends Sprite {
         iconHeight = ii.getIconHeight();
         image = ii.getImage();
 
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void loseLife() {
+        this.lives -= 1;
+    }
+
+    public void gainLife() {
+        this.lives += 1;
     }
 
 
