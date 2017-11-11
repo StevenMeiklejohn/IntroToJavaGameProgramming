@@ -1,25 +1,28 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class WindowThread extends JPanel implements Runnable {
 
     private final int B_WIDTH = 800;
     private final int B_HEIGHT = 600;
     private final int DELAY = 50;
-
     private PlayerShip playerShip;
     private Thread animator;
     private ArrayList aliens;
     private ArrayList explosions;
+    private ArrayList planets;
     private boolean inGame;
     private boolean inTitle;
     private boolean gameOver;
+//    private static Planet planet;
     private static Background bg1, bg2;
     KeyboardInput keyboard = new KeyboardInput();
-    private final int[][] pos = {
-            {2380, 29}, {2500, 59}, {1380, 89},
+    private final int[][] wave1 = {
+            {500, 400}, {2500, 59}, {1380, 89},
             {780, 109}, {580, 139}, {680, 239},
             {790, 259}, {760, 50}, {790, 150},
             {980, 209}, {560, 45}, {510, 70},
@@ -36,6 +39,8 @@ public class WindowThread extends JPanel implements Runnable {
     }
 
 
+
+
     private void initWindow() {
 
         setBackground(Color.BLACK);
@@ -45,31 +50,62 @@ public class WindowThread extends JPanel implements Runnable {
         setFocusable(true);
         inTitle = true;
         inGame = false;
-        initAliens();
+        initAliens(10);
         initExplosions();
+        initPlanets();
         bg1 = new Background(0, 0);
         bg2 = new Background(800, 0);
         playerShip = new PlayerShip(100, 300);
     }
 
-    public void initAliens() {
+    public void initAliens(int numberOfEnemeies) {
         aliens = new ArrayList<>();
+        populateRandomEnemies(numberOfEnemeies);
+    }
 
-        for (int[] p : pos) {
-            aliens.add(new Alien(p[0], p[1]));
+    public void populateRandomEnemies(int numberOfEnemies){
+        int counter = 0;
+        int lastX = 0;
+        int lastY = 0;
+
+        while(counter <= numberOfEnemies) {
+            Random rand = new Random();
+            int randomX = rand.nextInt(750) + 400;
+            int randomY = rand.nextInt(550) + 50;
+            if(randomX > lastX - 30 && randomX < lastX + 30){
+                randomX += 30;
+            }
+            if(randomY > lastY - 30 && randomY < lastY + 30){
+                randomY += 30;
+            }
+            lastX = randomX;
+            lastY = randomY;
+            Alien alien = new Alien(randomX, randomY);
+            aliens.add(alien);
+            counter++;
         }
     }
+
+
 
     public void initExplosions(){
         explosions = new ArrayList<Explosion>();
     }
 
+    public void initPlanets(){
+        Planet planet1 = new Planet(700, 100, "darker", -5);
+        Planet planet2 = new Planet(100, 200, "darker", 0);
+        Planet planet3 = new Planet(400, 400, "darker", -1);
+        planets = new ArrayList<Planet>();
+        planets.add(planet1);
+        planets.add(planet2);
+        planets.add(planet3);
+    }
+
     @Override
     public void addNotify() {
         super.addNotify();
-
         animator = new Thread(this);
-
         animator.start();
     }
 
@@ -98,10 +134,14 @@ public class WindowThread extends JPanel implements Runnable {
         Graphics2D g2d = (Graphics2D) g;
 
 
-
         if(playerShip.isVisible()) {
             g.drawImage(bg1.getBackgroundImage(), bg1.getX(), bg1.getY(), this);
             g.drawImage(bg2.getBackgroundImage(), bg2.getX(), bg2.getY(), this);
+            for (Object p : planets) {
+                Planet planet = (Planet) p;
+                g2d.drawImage(planet.getImage(), planet.getX(),
+                        planet.getY(), this);
+            }
             g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
         }
 
@@ -165,6 +205,7 @@ public class WindowThread extends JPanel implements Runnable {
         while (inGame) {
             bg1.update();
             bg2.update();
+            updatePlanets();
             updatePlayerShip();
             updateMissiles();
             updateAliens();
@@ -250,6 +291,13 @@ public class WindowThread extends JPanel implements Runnable {
             if (ex.checkForRemoval()) {
                 explosions.remove(i);
             }
+        }
+    }
+
+    private void updatePlanets(){
+        for (int i = 0; i < planets.size(); i++) {
+            Planet planet = (Planet) planets.get(i);
+            planet.update();
         }
     }
 

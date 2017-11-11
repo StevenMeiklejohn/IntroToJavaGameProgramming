@@ -23,17 +23,11 @@ public class Background {
         }
     }
 
-//    public void drawModel(Graphics g){
-//        g.drawImage(getBackgroundImage(),x,y,null);
-//    }
-
     public Image getBackgroundImage(){
-        ImageIcon ic = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/background800x600.png");
+        ImageIcon ic = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/spaceBG1.png");
         return ic.getImage();
     }
-//    public void displayX(){
-//        System.out.println(x);
-//    }
+
     public int getX(){
         return bgX;
     }
