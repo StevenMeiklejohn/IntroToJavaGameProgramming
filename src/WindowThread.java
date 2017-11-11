@@ -18,7 +18,8 @@ public class WindowThread extends JPanel implements Runnable {
     private Shield shieldGreen;
     private Shield shieldYellow;
     private Shield shieldRed;
-    private Shield currentShield;
+    public static final long FIRE_RATE = 200000000L;
+    public long lastShot;
 
     private boolean inGame;
     private boolean inTitle;
@@ -412,7 +413,11 @@ public class WindowThread extends JPanel implements Runnable {
         }
 
         if (keyboard.keyDown(KeyEvent.VK_SPACE)){
-            playerShip.fire();
+
+            if(System.nanoTime() - lastShot >= FIRE_RATE) {
+                playerShip.fire();
+                lastShot = System.nanoTime();
+            }
         }
 
         if (keyboard.keyDown(KeyEvent.VK_P)){
