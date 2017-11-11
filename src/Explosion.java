@@ -12,7 +12,7 @@ public class Explosion extends Sprite {
 
     private void initExplosion() {
 
-        loadImage("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/explosion3.png");
+        loadImage("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/explosionGif.gif");
         getImageDimensions();
         timeInitialised = System.currentTimeMillis();
     }
@@ -24,7 +24,7 @@ public class Explosion extends Sprite {
         timeDiff = newTime - timeInitialised;
 
 
-        if (timeDiff > 200) {
+        if (timeDiff > 500) {
             return true;
         } else {
             return false;

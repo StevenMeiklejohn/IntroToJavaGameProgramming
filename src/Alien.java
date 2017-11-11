@@ -13,7 +13,7 @@ public class Alien extends Sprite {
 
     private void initAlien() {
 
-        loadImage("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/enemy1.png");
+        loadImage("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/enemyTriangleGif.gif");
         getImageDimensions();
     }
 

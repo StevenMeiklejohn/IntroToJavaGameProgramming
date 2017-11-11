@@ -61,9 +61,9 @@ public class WindowThread extends JPanel implements Runnable {
         bg1 = new Background(0, 0);
         bg2 = new Background(800, 0);
         playerShip = new PlayerShip(75, 275);
-        shieldGreen = new Shield(50, 250, "green");
-        shieldYellow = new Shield(50, 250, "yellow");
-        shieldRed = new Shield(50, 250, "red");
+        shieldGreen = new Shield(40, 240, "green");
+        shieldYellow = new Shield(40, 240, "yellow");
+        shieldRed = new Shield(40, 240, "red");
 
     }
 
@@ -155,19 +155,19 @@ public class WindowThread extends JPanel implements Runnable {
                 shieldGreen.setVisible(true);
                 shieldYellow.setVisible(false);
                 shieldRed.setVisible(false);
-                g2d.drawImage(shieldGreen.getImage(), playerShip.getX() - 25, playerShip.getY() - 25, this);
+                g2d.drawImage(shieldGreen.getImage(), playerShip.getX() - 20, playerShip.getY() - 35, this);
             }
             if(playerShip.getLives() == 2) {
                 shieldGreen.setVisible(false);
                 shieldYellow.setVisible(true);
                 shieldRed.setVisible(false);
-                g2d.drawImage(shieldYellow.getImage(), playerShip.getX() - 25, playerShip.getY() - 25, this);
+                g2d.drawImage(shieldYellow.getImage(), playerShip.getX() - 20, playerShip.getY() - 35, this);
             }
             if(playerShip.getLives() == 1) {
                 shieldGreen.setVisible(false);
                 shieldYellow.setVisible(false);
                 shieldRed.setVisible(true);
-                g2d.drawImage(shieldRed.getImage(), playerShip.getX() - 25, playerShip.getY() - 25, this);
+                g2d.drawImage(shieldRed.getImage(), playerShip.getX() - 20, playerShip.getY() - 35, this);
             }
             g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
         }

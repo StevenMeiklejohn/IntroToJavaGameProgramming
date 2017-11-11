@@ -27,7 +27,7 @@ public class PlayerShip extends Sprite {
     private void initPlayerShip() {
 
         missiles = new ArrayList();
-        ImageIcon ii = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/player1.png");
+        ImageIcon ii = new ImageIcon("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/player1Gif.gif");
         iconWidth = ii.getIconWidth();
         iconHeight = ii.getIconHeight();
         image = ii.getImage();
