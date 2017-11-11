@@ -15,7 +15,11 @@ public class WindowThread extends JPanel implements Runnable {
     private ArrayList aliens;
     private ArrayList explosions;
     private ArrayList planets;
-    private Shield shield;
+    private Shield shieldGreen;
+    private Shield shieldYellow;
+    private Shield shieldRed;
+    private Shield currentShield;
+
     private boolean inGame;
     private boolean inTitle;
     private boolean gameOver;
@@ -56,7 +60,10 @@ public class WindowThread extends JPanel implements Runnable {
         bg1 = new Background(0, 0);
         bg2 = new Background(800, 0);
         playerShip = new PlayerShip(75, 275);
-        shield = new Shield(50, 250, "green");
+        shieldGreen = new Shield(50, 250, "green");
+        shieldYellow = new Shield(50, 250, "yellow");
+        shieldRed = new Shield(50, 250, "red");
+
     }
 
     public void initAliens(int numberOfEnemeies) {
@@ -143,7 +150,24 @@ public class WindowThread extends JPanel implements Runnable {
                 g2d.drawImage(planet.getImage(), planet.getX(),
                         planet.getY(), this);
             }
-            g2d.drawImage(shield.getImage(), playerShip.getX() - 25, playerShip.getY() - 25, this);
+            if(playerShip.getLives() == 3) {
+                shieldGreen.setVisible(true);
+                shieldYellow.setVisible(false);
+                shieldRed.setVisible(false);
+                g2d.drawImage(shieldGreen.getImage(), playerShip.getX() - 25, playerShip.getY() - 25, this);
+            }
+            if(playerShip.getLives() == 2) {
+                shieldGreen.setVisible(false);
+                shieldYellow.setVisible(true);
+                shieldRed.setVisible(false);
+                g2d.drawImage(shieldYellow.getImage(), playerShip.getX() - 25, playerShip.getY() - 25, this);
+            }
+            if(playerShip.getLives() == 1) {
+                shieldGreen.setVisible(false);
+                shieldYellow.setVisible(false);
+                shieldRed.setVisible(true);
+                g2d.drawImage(shieldRed.getImage(), playerShip.getX() - 25, playerShip.getY() - 25, this);
+            }
             g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
         }
 
@@ -268,7 +292,11 @@ public class WindowThread extends JPanel implements Runnable {
     }
 
     private void updatePlayerShield(){
-        shield.move(playerShip.getX(), playerShip.getY());
+        shieldGreen.move(playerShip.getX(), playerShip.getY());
+        shieldYellow.move(playerShip.getX(), playerShip.getY());
+        shieldRed.move(playerShip.getX(), playerShip.getY());
+
+
     }
 
     private void updateAliens() {
@@ -317,7 +345,14 @@ public class WindowThread extends JPanel implements Runnable {
             Alien a = (Alien) aliens.get(i);
             Rectangle r2 = a.getBounds();
 
-            if (r3.intersects(r2)) {
+            if (r3.intersects(r2) && playerShip.getLives() >= 1) {
+                playerShip.loseLife();
+                 a.setVisible(false);
+                explosions.add(new Explosion(a.getX(), a.getY()));
+            }
+
+
+            if (r3.intersects(r2) && playerShip.getLives() < 1) {
                 playerShip.setVisible(false);
                 a.setVisible(false);
                 explosions.add(new Explosion(a.getX(), a.getY()));
