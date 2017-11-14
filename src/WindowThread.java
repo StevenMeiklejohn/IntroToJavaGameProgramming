@@ -80,12 +80,12 @@ public class WindowThread extends JPanel implements Runnable {
         while(counter <= numberOfEnemies) {
             Random rand = new Random();
             int randomX = rand.nextInt(750) + 400;
-            int randomY = rand.nextInt(550) + 50;
-            if(randomX > lastX - 30 && randomX < lastX + 30){
-                randomX += 30;
+            int randomY = rand.nextInt(550) - 50;
+            if(randomX - 30 > lastX - 30 && randomX + 30 < lastX + 30){
+                randomX += 60;
             }
-            if(randomY > lastY - 30 && randomY < lastY + 30){
-                randomY += 30;
+            if(randomY - 30 > lastY - 30 && randomY + 30 < lastY + 30){
+                randomY += 60;
             }
             lastX = randomX;
             lastY = randomY;
@@ -388,7 +388,7 @@ public class WindowThread extends JPanel implements Runnable {
 
         // If moving down
         if (keyboard.keyDown(KeyEvent.VK_DOWN)) {
-            playerShip.setDy(5);
+            playerShip.setDy(8);
         }
         if (!keyboard.keyDown(KeyEvent.VK_DOWN)){
             playerShip.setDy(0);
@@ -396,12 +396,12 @@ public class WindowThread extends JPanel implements Runnable {
 
         // If moving up
         if (keyboard.keyDown(KeyEvent.VK_UP)) {
-            playerShip.setDy(-5);
+            playerShip.setDy(-8);
         }
 
         // If moving left
         if (keyboard.keyDown(KeyEvent.VK_LEFT)) {
-            playerShip.setDx(-5);
+            playerShip.setDx(-8);
         }
         if (!keyboard.keyDown(KeyEvent.VK_LEFT)){
             playerShip.setDx(0);
@@ -409,7 +409,7 @@ public class WindowThread extends JPanel implements Runnable {
 
         // If moving right
         if (keyboard.keyDown(KeyEvent.VK_RIGHT)) {
-            playerShip.setDx(5);
+            playerShip.setDx(8);
         }
 
         if (keyboard.keyDown(KeyEvent.VK_SPACE)){

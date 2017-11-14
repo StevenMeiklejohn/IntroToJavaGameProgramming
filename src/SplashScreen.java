@@ -14,7 +14,7 @@ public class SplashScreen extends Sprite {
 
     private void initSplashScreen() {
 
-        loadImage("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/spacebastards.gif");
+        loadImage("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/pixelPlanetSplashGif.gif");
     }
 
     @Override

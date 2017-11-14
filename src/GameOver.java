@@ -14,7 +14,7 @@ public class GameOver extends Sprite {
 
     private void initGameOver() {
 
-        loadImage("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/gameover2.gif");
+        loadImage("/Users/user/Desktop/CX3_4/projects/java/CodeClanGame3/Resources/pixelPlanetSplashGif2.gif");
     }
 
    @Override

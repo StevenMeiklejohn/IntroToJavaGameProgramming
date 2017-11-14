@@ -241,7 +241,6 @@ public class WindowThread extends JPanel implements Runnable {
 
 
     private void initWindow() {
-
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         setDoubleBuffered(true);
@@ -530,6 +529,7 @@ public class KeyboardInput implements KeyListener {
     }
 }
 ```
+
 
 
 Right.....All being well, if you run your app, you should now be able to control the player ship on screeen and be prevented from going outside the frame.
