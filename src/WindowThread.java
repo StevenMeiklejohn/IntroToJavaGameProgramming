@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -79,14 +80,14 @@ public class WindowThread extends JPanel implements Runnable {
 
         while(counter <= numberOfEnemies) {
             Random rand = new Random();
-            int randomX = rand.nextInt(750) + 400;
-            int randomY = rand.nextInt(550) - 50;
-            if(randomX - 30 > lastX - 30 && randomX + 30 < lastX + 30){
-                randomX += 60;
-            }
-            if(randomY - 30 > lastY - 30 && randomY + 30 < lastY + 30){
-                randomY += 60;
-            }
+            int randomX = rand.nextInt(800) + 400;
+            int randomY = rand.nextInt(510) + 30;
+//            if(randomX - 30 > lastX - 30 && randomX + 30 < lastX + 30){
+//                randomX += 60;
+//            }
+//            if(randomY - 30 > lastY - 30 && randomY + 30 < lastY + 30){
+//                randomY += 60;
+//            }
             lastX = randomX;
             lastY = randomY;
             Alien alien = new Alien(randomX, randomY);
@@ -186,6 +187,17 @@ public class WindowThread extends JPanel implements Runnable {
                     a.getY(), this);
         }
 
+        for (Object a1 : aliens) {
+            Alien a = (Alien) a1;
+            ArrayList ams = a.getMissiles();
+            for(Object m2: ams) {
+                Missile2 ma = (Missile2) m2;
+                g2d.drawImage(ma.getImage(), ma.getX(),
+                        ma.getY(), this);
+            }
+        }
+
+
         for (Object ex : explosions) {
             Explosion explosion = (Explosion) ex;
             g2d.drawImage(explosion.getImage(), explosion.getX(),
@@ -235,8 +247,9 @@ public class WindowThread extends JPanel implements Runnable {
             updatePlanets();
             updatePlayerShield();
             updatePlayerShip();
-            updateMissiles();
             updateAliens();
+            updateMissiles();
+            updateEnemyMissiles();
             updateExplosions();
 
             checkCollisions();
@@ -266,19 +279,28 @@ public class WindowThread extends JPanel implements Runnable {
     }
 
     private void updateMissiles() {
-
         ArrayList ms = playerShip.getMissiles();
-
         for (int i = 0; i < ms.size(); i++) {
-
             Missile m = (Missile) ms.get(i);
-
             if (m.isVisible()) {
-
                 m.move();
             } else {
-
                 ms.remove(i);
+            }
+        }
+    }
+
+    private void updateEnemyMissiles() {
+        for(int a = 0; a < aliens.size(); a++) {
+            Alien alien = (Alien) aliens.get(a);
+            ArrayList ams = alien.getMissiles();
+            for (int m = 0; m < ams.size(); m++) {
+                Missile2 bullet = (Missile2) ams.get(m);
+                if (bullet.isVisible()) {
+                    bullet.move();
+                } else {
+                    ams.remove(m);
+                }
             }
         }
     }
