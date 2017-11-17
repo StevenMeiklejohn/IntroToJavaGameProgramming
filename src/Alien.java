@@ -54,12 +54,13 @@ public class Alien extends Sprite {
 
 
 
-    public boolean isInAttackRange(int playerX, int playerY){
-        if(x - playerX < 10 || y - playerY < 10){
-            return true;
-        }
-        return false;
-    }
+
+//    public boolean isInAttackRange(int playerX, int playerY){
+//        if(x - playerX < 10 || y - playerY < 10){
+//            return true;
+//        }
+//        return false;
+//    }
 
     public ArrayList getMissiles() {
         return missiles;

@@ -367,6 +367,7 @@ public class WindowThread extends JPanel implements Runnable {
         for (int i = 0; i < aliens.size(); i++) {
             Alien a = (Alien) aliens.get(i);
             Rectangle r2 = a.getBounds();
+            ArrayList<Missile2> alienMissiles = a.getMissiles();
 
             if (r3.intersects(r2) && playerShip.getLives() >= 1) {
                 playerShip.loseLife();
@@ -382,6 +383,18 @@ public class WindowThread extends JPanel implements Runnable {
                 explosions.add(new Explosion(playerShip.getX(), playerShip.getY()));
                 gameOver = true;
             }
+            for (Missile2 m2: alienMissiles){
+                Rectangle amr = m2.getBounds();
+                if(amr.intersects(r3) && playerShip.getLives() >= 1){
+                    playerShip.loseLife();
+                    m2.setVisible(false);
+                    explosions.add(new Explosion(a.getX(), a.getY()));
+                }
+
+        }
+
+
+
 
         }
 
