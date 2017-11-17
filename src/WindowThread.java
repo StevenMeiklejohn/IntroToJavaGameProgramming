@@ -82,12 +82,12 @@ public class WindowThread extends JPanel implements Runnable {
             Random rand = new Random();
             int randomX = rand.nextInt(800) + 400;
             int randomY = rand.nextInt(510) + 30;
-//            if(randomX - 30 > lastX - 30 && randomX + 30 < lastX + 30){
-//                randomX += 60;
-//            }
-//            if(randomY - 30 > lastY - 30 && randomY + 30 < lastY + 30){
-//                randomY += 60;
-//            }
+            if(randomX - 30 > lastX - 30 && randomX + 30 < lastX + 30){
+                randomX += 60;
+            }
+            if(randomY - 30 > lastY - 30 && randomY + 30 < lastY + 30){
+                randomY += 60;
+            }
             lastX = randomX;
             lastY = randomY;
             Alien alien = new Alien(randomX, randomY);

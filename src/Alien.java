@@ -33,6 +33,9 @@ public class Alien extends Sprite {
     }
 
     public void move() {
+        if(x <= -30){
+            x = 830;
+        }
         x -= 2;
         fire();
     }
