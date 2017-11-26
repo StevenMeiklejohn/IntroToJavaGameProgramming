@@ -1,7 +1,13 @@
+import com.sun.media.jfxmedia.MediaPlayer;
+import javafx.scene.media.Media;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,6 +27,7 @@ public class WindowThread extends JPanel implements Runnable {
     private Shield shieldRed;
     public static final long FIRE_RATE = 200000000L;
     public long lastShot;
+
 
     private boolean inGame;
     private boolean inTitle;
@@ -66,12 +73,15 @@ public class WindowThread extends JPanel implements Runnable {
         shieldYellow = new Shield(40, 240, "yellow");
         shieldRed = new Shield(40, 240, "red");
 
+
+
     }
 
     public void initAliens(int numberOfEnemeies) {
         aliens = new ArrayList<>();
         populateRandomEnemies(numberOfEnemeies);
     }
+
 
     public void populateRandomEnemies(int numberOfEnemies){
         int counter = 0;
@@ -118,6 +128,7 @@ public class WindowThread extends JPanel implements Runnable {
         animator = new Thread(this);
         animator.start();
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
@@ -221,11 +232,38 @@ public class WindowThread extends JPanel implements Runnable {
         g2d.drawImage(title.getImage(), 0, 0, this);
     }
 
+    public void playMusic(){
+        //** add this into your application code as appropriate
+//      Open an input stream  to the audio file.
+
+        File file = new File("./Resources/music.wav");
+        InputStream in = null;
+        try {
+            in = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // Create an AudioStream object from the input stream.
+        AudioStream as = null;
+        try {
+            as = new AudioStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Use the static class member "player" from class AudioPlayer to play
+        // clip.
+        AudioPlayer.player.start(as);
+        // Similarly, to stop the audio.
+//        AudioPlayer.player.stop(as);
+    }
+
 
 
 
     @Override
     public void run() {
+        playMusic();
 
         long beforeTime, timeDiff, sleep;
 
