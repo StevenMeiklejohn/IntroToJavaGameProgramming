@@ -25,6 +25,11 @@ public class WindowThread extends JPanel implements Runnable {
     private Shield shieldGreen;
     private Shield shieldYellow;
     private Shield shieldRed;
+    private Sound music;
+    private Sound explosion;
+    private Sound critical_damage;
+    private Sound game_over;
+    private Sound player_shot;
     public static final long FIRE_RATE = 200000000L;
     public static final long CRITICAL_DAMAGE_RATE = 5000000000L;
 
@@ -76,6 +81,11 @@ public class WindowThread extends JPanel implements Runnable {
         shieldGreen = new Shield(40, 240, "green");
         shieldYellow = new Shield(40, 240, "yellow");
         shieldRed = new Shield(40, 240, "red");
+        music = new Sound("music");
+        explosion = new Sound("explosion");
+        critical_damage = new Sound("critical_damage");
+        player_shot = new Sound("player_shot");
+        game_over = new Sound("game_over");
 
 
 
@@ -184,7 +194,7 @@ public class WindowThread extends JPanel implements Runnable {
                 shieldYellow.setVisible(false);
                 shieldRed.setVisible(true);
                 if(System.nanoTime() - lastCriticalDamage >= CRITICAL_DAMAGE_RATE) {
-                    playCriticalDamage();
+                    critical_damage.play();
                     lastCriticalDamage = System.nanoTime();
                 }
                 g2d.drawImage(shieldRed.getImage(), playerShip.getX() - 20, playerShip.getY() - 35, this);
@@ -240,95 +250,10 @@ public class WindowThread extends JPanel implements Runnable {
         g2d.drawImage(title.getImage(), 0, 0, this);
     }
 
-    public void playMusic(){
-        //** add this into your application code as appropriate
-//      Open an input stream  to the audio file.
-
-        File file = new File("./Resources/music.wav");
-        InputStream in = null;
-        try {
-            in = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        // Create an AudioStream object from the input stream.
-        AudioStream as = null;
-        try {
-            as = new AudioStream(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Use the static class member "player" from class AudioPlayer to play
-        // clip.
-        AudioPlayer.player.start(as);
-        // Similarly, to stop the audio.
-//        AudioPlayer.player.stop(as);
-    }
-
-    public void playExplosion(){
-        File file = new File("./Resources/dark_explosion.wav");
-        InputStream in = null;
-        try {
-            in = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        AudioStream ex = null;
-        try {
-            ex = new AudioStream(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AudioPlayer.player.start(ex);
-// Similarly, to stop the audio.
-//        AudioPlayer.player.stop(ex);
-    }
-
-    public void playPlayerShot(){
-        File file = new File("./Resources/laser_rifle.wav");
-        InputStream in = null;
-        try {
-            in = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        AudioStream ex = null;
-        try {
-            ex = new AudioStream(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AudioPlayer.player.start(ex);
-// Similarly, to stop the audio.
-//        AudioPlayer.player.stop(ex);
-    }
-
-    public void playCriticalDamage(){
-        File file = new File("./Resources/damage.wav");
-        InputStream in = null;
-        try {
-            in = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        AudioStream ex = null;
-        try {
-            ex = new AudioStream(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AudioPlayer.player.start(ex);
-// Similarly, to stop the audio.
-//        AudioPlayer.player.stop(ex);
-    }
-
-
-
 
     @Override
     public void run() {
-        playMusic();
+        music.play();
 
         long beforeTime, timeDiff, sleep;
 
@@ -476,7 +401,7 @@ public class WindowThread extends JPanel implements Runnable {
                 playerShip.loseLife();
                  a.setVisible(false);
                 explosions.add(new Explosion(a.getX(), a.getY()));
-                playExplosion();
+                explosion.play();
             }
 
 
@@ -485,7 +410,7 @@ public class WindowThread extends JPanel implements Runnable {
                 a.setVisible(false);
                 explosions.add(new Explosion(a.getX(), a.getY()));
                 explosions.add(new Explosion(playerShip.getX(), playerShip.getY()));
-                playExplosion();
+                explosion.play();
                 gameOver = true;
             }
             for (Missile2 m2: alienMissiles){
@@ -518,7 +443,7 @@ public class WindowThread extends JPanel implements Runnable {
                     m.setVisible(false);
                     a.setVisible(false);
                     explosions.add(new Explosion(a.getX(), a.getY()));
-                    playExplosion();
+                    explosion.play();
                 }
             }
         }
@@ -558,7 +483,7 @@ public class WindowThread extends JPanel implements Runnable {
 
             if(System.nanoTime() - lastShot >= FIRE_RATE) {
                 playerShip.fire();
-                playPlayerShot();
+                player_shot.play();
                 lastShot = System.nanoTime();
             }
         }
