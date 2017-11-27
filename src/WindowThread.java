@@ -26,7 +26,11 @@ public class WindowThread extends JPanel implements Runnable {
     private Shield shieldYellow;
     private Shield shieldRed;
     public static final long FIRE_RATE = 200000000L;
+    public static final long CRITICAL_DAMAGE_RATE = 5000000000L;
+
     public long lastShot;
+    public long lastCriticalDamage;
+
 
 
     private boolean inGame;
@@ -179,6 +183,10 @@ public class WindowThread extends JPanel implements Runnable {
                 shieldGreen.setVisible(false);
                 shieldYellow.setVisible(false);
                 shieldRed.setVisible(true);
+                if(System.nanoTime() - lastCriticalDamage >= CRITICAL_DAMAGE_RATE) {
+                    playCriticalDamage();
+                    lastCriticalDamage = System.nanoTime();
+                }
                 g2d.drawImage(shieldRed.getImage(), playerShip.getX() - 20, playerShip.getY() - 35, this);
             }
             g2d.drawImage(playerShip.getImage(), playerShip.getX(), playerShip.getY(), this);
@@ -256,6 +264,63 @@ public class WindowThread extends JPanel implements Runnable {
         AudioPlayer.player.start(as);
         // Similarly, to stop the audio.
 //        AudioPlayer.player.stop(as);
+    }
+
+    public void playExplosion(){
+        File file = new File("./Resources/dark_explosion.wav");
+        InputStream in = null;
+        try {
+            in = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        AudioStream ex = null;
+        try {
+            ex = new AudioStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AudioPlayer.player.start(ex);
+// Similarly, to stop the audio.
+//        AudioPlayer.player.stop(ex);
+    }
+
+    public void playPlayerShot(){
+        File file = new File("./Resources/laser_rifle.wav");
+        InputStream in = null;
+        try {
+            in = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        AudioStream ex = null;
+        try {
+            ex = new AudioStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AudioPlayer.player.start(ex);
+// Similarly, to stop the audio.
+//        AudioPlayer.player.stop(ex);
+    }
+
+    public void playCriticalDamage(){
+        File file = new File("./Resources/damage.wav");
+        InputStream in = null;
+        try {
+            in = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        AudioStream ex = null;
+        try {
+            ex = new AudioStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AudioPlayer.player.start(ex);
+// Similarly, to stop the audio.
+//        AudioPlayer.player.stop(ex);
     }
 
 
@@ -411,6 +476,7 @@ public class WindowThread extends JPanel implements Runnable {
                 playerShip.loseLife();
                  a.setVisible(false);
                 explosions.add(new Explosion(a.getX(), a.getY()));
+                playExplosion();
             }
 
 
@@ -419,6 +485,7 @@ public class WindowThread extends JPanel implements Runnable {
                 a.setVisible(false);
                 explosions.add(new Explosion(a.getX(), a.getY()));
                 explosions.add(new Explosion(playerShip.getX(), playerShip.getY()));
+                playExplosion();
                 gameOver = true;
             }
             for (Missile2 m2: alienMissiles){
@@ -427,6 +494,7 @@ public class WindowThread extends JPanel implements Runnable {
                     playerShip.loseLife();
                     m2.setVisible(false);
                     explosions.add(new Explosion(a.getX(), a.getY()));
+
                 }
 
         }
@@ -450,6 +518,7 @@ public class WindowThread extends JPanel implements Runnable {
                     m.setVisible(false);
                     a.setVisible(false);
                     explosions.add(new Explosion(a.getX(), a.getY()));
+                    playExplosion();
                 }
             }
         }
@@ -489,6 +558,7 @@ public class WindowThread extends JPanel implements Runnable {
 
             if(System.nanoTime() - lastShot >= FIRE_RATE) {
                 playerShip.fire();
+                playPlayerShot();
                 lastShot = System.nanoTime();
             }
         }
